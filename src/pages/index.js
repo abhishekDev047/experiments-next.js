@@ -1,6 +1,8 @@
 import Head from 'next/head';
 import Image from 'next/image';
 import { getSortedPostsData }from "../../lib/posts";
+import Link from 'next/link';
+import Date from '@/components/date';
 
 export async function getStaticProps() {
   const allPostsData = getSortedPostsData();
@@ -32,12 +34,12 @@ export default function Home({allPostsData}) {
         <h2 className='text-2xl'>Blog</h2>
         <ul className='text-2xl'>
           {allPostsData.map(({ id, date, title }) => (
-            <li className='text-2xl' key={id}>
-              {title}
+            <li className='text-2xl ' key={id}>
+            <Link href={`/posts/${id}`} className='text-blue-500'>{title}</Link>
               <br />
-              {id}
-              <br />
-              {date}
+              <small className='text-sm'>
+    <Date dateString={date} />
+  </small>
             </li>
           ))}
         </ul>
