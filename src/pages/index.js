@@ -1,8 +1,17 @@
 import Head from 'next/head';
 import Image from 'next/image';
+import { getSortedPostsData }from "../../lib/posts";
 
+export async function getStaticProps() {
+  const allPostsData = getSortedPostsData();
+  return {
+    props: {
+      allPostsData,
+    },
+  };
+};
 
-export default function Home() {
+export default function Home({allPostsData}) {
   return (
     <div className=' flex flex-col items-center justify-center'>
       <Head>
@@ -18,6 +27,21 @@ export default function Home() {
         <div> image component <Image src={"/dimaria.jpeg"} height={144} width={144} alt="Your Name"
          className=''/> </div> 
         </div>
+
+        <section className=''>
+        <h2 className='text-2xl'>Blog</h2>
+        <ul className='text-2xl'>
+          {allPostsData.map(({ id, date, title }) => (
+            <li className='text-2xl' key={id}>
+              {title}
+              <br />
+              {id}
+              <br />
+              {date}
+            </li>
+          ))}
+        </ul>
+      </section>
     </div>
   )
 };
