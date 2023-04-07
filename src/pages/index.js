@@ -44,6 +44,9 @@ export default function Home({allPostsData}) {
           ))}
         </ul>
       </section>
+      <div>
+        {/* <Link className='text-2xl text-amber-600' href={'./comps/form1'}>FORM</Link> */}
+      </div>
     </div>
   )
 };
