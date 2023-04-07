@@ -3,7 +3,7 @@ import { Formik, Form, Field } from "formik";
 import Link from "next/link";
 import * as Yup from "yup";
 
-const SignUpSchema = Yup.object().shape({
+const SignUpSchema = Yup.object().shape({ 
   username: Yup.string()
     .min(2, "too short name")
     .max(50, "too long")
