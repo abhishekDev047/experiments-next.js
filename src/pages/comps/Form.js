@@ -9,8 +9,6 @@ const SignUpSchema = Yup.object().shape({
     .max(50, "too long")
     .required("Required"),
   password: Yup.string()
-    .min(8, "too short password")
-    .max(16, "too long ")
     .required("Required"),
   phone: Yup.number()
     .min(10, "not valid")
