@@ -4,7 +4,10 @@ import Head from 'next/head';
 // import Link from 'next/link';
 // import Date from '@/components/date';
 import { useSelector, useDispatch } from 'react-redux';
-import { increment, decrement } from '@/features/counter/counterSlice';
+import { increment, decrement,incrementByAmount,lessByAmount } from '@/features/counter/counterSlice'; 
+import { login, logout } from '@/features/user/userSlice';
+import { useState } from 'react';
+
 
 // export async function getStaticProps() {
 //   const allPostsData = getSortedPostsData();
@@ -18,8 +21,32 @@ import { increment, decrement } from '@/features/counter/counterSlice';
 
 export default function Home() {
 
+  const [amount, setAmount] = useState(100)
+
   const count = useSelector(state=> state.counter.value);
+  const user = useSelector(state=> state.user.value);
   const dispatch = useDispatch();
+
+  const Sign =()=>{
+    if(count >= 2000){ 
+      return(
+          <div>
+            You can now purchase $2000 item 
+          </div>
+      )
+    }
+    else {
+
+    }
+   }
+
+   const Status = ()=>{
+      return(
+        <div>
+          you are logged {!!user ? 'in' : 'out'}
+        </div>
+      )
+      };
   return (
     <div className=' flex flex-col items-center justify-center'>
       <Head>
@@ -70,7 +97,36 @@ export default function Home() {
                    onClick={()=>dispatch(decrement())}>
                 less
                 </button>
+                <br />
+                <input type="number" value={amount} onChange={e=>setAmount(Number(e.target.value) || 0)}  />
+                <button 
+                  className='border border-red-600 mx-4 px-2 bg-orange-500'
+                   onClick={()=>dispatch(incrementByAmount(amount))}>
+                add amount
+                </button>
+                <button 
+                  className='border border-red-600 mx-4 px-2 bg-orange-500'
+                   onClick={()=>dispatch(lessByAmount(amount))}>
+                less amount
+                </button>
               </div>
+
+                <Sign />
+            </div>
+            <br />
+            <div>
+              <Status />
+       
+              <button
+              className='border border-red-600 mx-4 px-2 bg-orange-500'
+              onClick={()=>{dispatch(login())}}>
+                  Login
+              </button>
+              <button
+              className='border border-red-600 mx-4 px-2 bg-orange-500'
+              onClick={()=>{dispatch(logout())}}>
+                  Log Out
+              </button>
             </div>
     </div>
   )
